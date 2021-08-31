@@ -87,6 +87,8 @@ The next step is to created the Graph, you will need the library "igraph", insta
     g <- graph_from_data_frame(Dat, directed = FALSE)
     autograph(g)
 
+ <img src=".\media\descarga.png" style="zoom:60%;" />
+
 Information about the graph.
 
     print(paste("The Graph has",
@@ -167,6 +169,8 @@ Let's see the behavior of all the topological index that we have
       geom_point(aes(color = variable), size=0.5)  +
       labs(title="All variables")
 
+<img src=".\media\descarga (1).png" style="zoom:60%;" />
+
 
 ### Set Theory and Venn Diagrams.
 We start by creating sets with the top 50% in each index, and the look for the intersections.
@@ -195,6 +199,10 @@ We start by creating sets with the top 50% in each index, and the look for the i
     cat.default.pos = "outer",
     cat.dist = c(0.05, 0.08, 0.08, 0.06, 0.08)
     )
+
+
+<img src=".\media\descarga (2).png" style="zoom:60%;" />
+
 
     library(gplots)
     isect <- attr(venn(x, intersection=TRUE), "intersection")
@@ -237,6 +245,9 @@ Next we will see the size of the intersections in a bar diagram
      "Degree&Centrality&PageRank&Betweenness&Closeness" =  length(isect$`Closeness:Degree:Centrality:Betweenness:PageRank`)
     )
      upset(fromExpression(input))
+
+
+<img src=".\media\descarga (3).png" style="zoom:60%;" />
 
 These proteins are grouped in modules, this information is in the file "FunctionalModules.csv", we would like too see how much every module add in each topological index. First we read the modules and find out in which module is each protein.
 
@@ -297,6 +308,8 @@ Now we can do a boxplot for each module in each topological index
           theme(axis.title.x=element_blank())        
     multiplot(p0, p1, p2, p3, p4, cols=1 )
 
+<img src=".\media\descarga (5).png" style="zoom:60%;" />
+
 The barplot graph for each index
 
     p0 <- ggplot(subset(Vertex, !is.na(Module2))) +
@@ -320,3 +333,6 @@ The barplot graph for each index
          labs( fill = "") +
          theme(axis.title.x=element_blank())
     multiplot(p0, p1, p2, p3, p4, cols=1 )
+
+
+<img src=".\media\descarga (4).png" style="zoom:60%;" />
