@@ -87,7 +87,7 @@ The next step is to created the Graph, you will need the library "igraph", insta
     g <- graph_from_data_frame(Dat, directed = FALSE)
     autograph(g)
 
- <img src=".\media\descarga.png" style="zoom:60%;" />
+ <img src=".\media\descarga.png" style="zoom:10%;" />
 
 Information about the graph.
 
