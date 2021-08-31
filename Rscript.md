@@ -1,4 +1,4 @@
-## Graph Theory on Proteins
+# Graph Theory on Proteins
 
 install.packages("ggplot2")
 install.packages("igraph")
@@ -103,29 +103,29 @@ for (i in 1:length(dg))
   print(paste("Component", i, "Size:", length(degree(cg)) ) )
 }
 
-### Next we compute the following indices of each vertex, we will normalize our values, that means we will put all our values between 0 and 1.
+## Next we compute the following indices of each vertex, we will normalize our values, that means we will put all our values between 0 and 1.
 
 
-## DEGREE
+### Degree
 Vertex <- as.data.frame(degree(g))
 Vertex$Degree <- normalize(as.numeric(Vertex$`degree(g)`))
 Vertex$`degree(g)` <- NULL
 
 
-## CENTRALITY
+### Centrality
 Vertex$Centrality <- eigen_centrality(g)$vector
 
-## BETWEENNESS
+### Betweenness
 Vertex$Betweenness <- normalize(betweenness(g, normalized = TRUE ))
 
-## PAGERANK
+### Pagerank
 Vertex$PageRank <- normalize(page_rank(g)$vector)
 
-## CLOSENESS
+### Closeness
 Vertex$Closeness <- normalize(closeness(g))
 
 
-### Next we classify the vertex with values over the 50%, and save a copy of the original vertex
+## Next we classify the vertex with values over the 50%, and save a copy of the original vertex
 
 Vertex$N <- c(1:length(Vertex$Degree))
 Vertex$DegreeCat <- ifelse(Vertex$Degree < 0.5, "no", "yes")
