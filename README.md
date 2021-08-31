@@ -1,4 +1,7 @@
 # Graph Theory on Proteins
+We will compute some topological indices that will help us understand the "importancy" of each protein in terms of its connections.
+
+Installing packages and loading libraries
 
     install.packages("ggplot2")
     install.packages("igraph")
@@ -9,7 +12,6 @@
     install.packages("UpSetR")
     install.packages("tidyverse")
 
-Load libraries
 
     library(igraph)
     library(ggplot2)
