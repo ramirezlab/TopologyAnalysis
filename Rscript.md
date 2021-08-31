@@ -61,7 +61,7 @@
      ###################################################################
 
 
-## Upload file we read the file with the proteins and the connections and changing the columns names.
+### Upload file we read the file with the proteins and the connections and changing the columns names.
 
     url <- 'https://github.com/gcombarGitHub/GrafosFarmacosChile/raw/main/02_output_T1T2T3-interacting-with-T4.csv'
     library(readr)
@@ -74,18 +74,18 @@
     Dat$weight <- as.numeric(Dat$weight)*100
     Dat$Prot_A <- NULL; Dat$Prot_B<-NULL
 
-## If you load the data correctly, the data frame looks like the following table, were each row is a connection between the two proteins in each column
+### If you load the data correctly, the data frame looks like the following table, were each row is a connection between the two proteins in each column
 
     head(Dat, 5)
 
 
-## The next step is to created the Graph, you will need the library "igraph", install it if you haven't do so
+### The next step is to created the Graph, you will need the library "igraph", install it if you haven't do so
 
     library(igraph)
     g <- graph_from_data_frame(Dat, directed = FALSE)
     autograph(g)
 
-## Information about the graph
+### Information about the graph
 
     print(paste("The Graph has",
             length(degree(g)),
@@ -163,7 +163,7 @@
 
 
 ## Set Theory and Venn Diagrams.
-### We start by creating sets with the top 50% in each index, and the look for the intersections.
+We start by creating sets with the top 50% in each index, and the look for the intersections.
 
 
     library(ggvenn)
