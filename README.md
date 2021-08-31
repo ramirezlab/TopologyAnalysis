@@ -90,6 +90,9 @@ The next step is to created the Graph, you will need the library "igraph", insta
     autograph(g)
 
  <img src=".\media\descarga.png" style="zoom:10%;" />
+ 
+ This is the same network visualized in Cytoscape
+<img src=".\media\PPI-Blank_1.png" style="zoom:60%;" />
 
 Information about the graph.
 
@@ -184,6 +187,7 @@ Let's see the behavior of all the topological index that we have
       labs(title="All variables")
 
 <img src=".\media\descarga (1).png" style="zoom:60%;" />
+
 
 
 ### Set Theory and Venn Diagrams.
