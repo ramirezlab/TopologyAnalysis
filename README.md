@@ -103,28 +103,32 @@
        print(paste("Component", i, "Size:", length(degree(cg)) ) )
      }
 
-### Next we compute the following indices of each vertex, we will normalize our values, that means we will put all our values between 0 and 1.
+Next we compute the following indices of each vertex, we will normalize our values, that means we will put all our values between 0 and 1.
 
+Degree
 
-### Degree
     Vertex <- as.data.frame(degree(g))
     Vertex$Degree <- normalize(as.numeric(Vertex$`degree(g)`))
     Vertex$`degree(g)` <- NULL
 
-### Centrality
+Centrality
+
     Vertex$Centrality <- eigen_centrality(g)$vector
 
-### Betweenness
+Betweenness
+
     Vertex$Betweenness <- normalize(betweenness(g, normalized = TRUE ))
 
-### Pagerank
+Pagerank
+
     Vertex$PageRank <- normalize(page_rank(g)$vector)
 
-### Closeness
+Closeness
+
     Vertex$Closeness <- normalize(closeness(g))
 
 
-### Next we classify the vertex with values over the 50%, and save a copy of the original vertex
+Next we classify the vertex with values over the 50%, and save a copy of the original vertex
 
     Vertex$N <- c(1:length(Vertex$Degree))
     Vertex$DegreeCat <- ifelse(Vertex$Degree < 0.5, "no", "yes")
@@ -143,12 +147,12 @@
     Best_PageRank <- as.list(as.character(row.names(Vertex[Vertex$PageRankCat == "yes",])))
 
 
-### The final table for our vertex looks like this:
+The final table for our vertex looks like this:
 
     head(Vertex, 5)
 
 
-### Let's see the behavior of all the topological index that we have
+Let's see the behavior of all the topological index that we have
 
     library("tidyverse")
     Vertex <- Vertex[order(Vertex$Degree, decreasing = FALSE), ]
@@ -162,7 +166,7 @@
       labs(title="All variables")
 
 
-## Set Theory and Venn Diagrams.
+### Set Theory and Venn Diagrams.
 We start by creating sets with the top 50% in each index, and the look for the intersections.
 
 
@@ -194,7 +198,7 @@ We start by creating sets with the top 50% in each index, and the look for the i
     isect <- attr(venn(x, intersection=TRUE), "intersection")
 
 
-### Next we will see the size of the intersections in a bar diagram
+Next we will see the size of the intersections in a bar diagram
 
     library(UpSetR)
      input <- c(
@@ -232,7 +236,7 @@ We start by creating sets with the top 50% in each index, and the look for the i
     )
      upset(fromExpression(input))
 
-### These proteins are grouped in modules, this information is in the file "FunctionalModules.csv", we would like too see how much every module add in each topological index. First we read the modules and find out in which module is each protein.
+These proteins are grouped in modules, this information is in the file "FunctionalModules.csv", we would like too see how much every module add in each topological index. First we read the modules and find out in which module is each protein.
 
     url <- 'https://raw.githubusercontent.com/gcombarGitHub/GrafosFarmacosChile/main/FunctionalModules.csv'
     library(readr)
@@ -248,7 +252,7 @@ We start by creating sets with the top 50% in each index, and the look for the i
     }
 
 
-### Now we will rename the modules just to make the graphs easy to read
+Now we will rename the modules just to make the graphs easy to read
 
     Vertex$Module2[Vertex$Module == "Acetylcholine-gated channel"] = "01"
     Vertex$Module2[Vertex$Module == "Adenylate cyclase activity"] = "02"
@@ -272,7 +276,7 @@ We start by creating sets with the top 50% in each index, and the look for the i
     Vertex$Module2[Vertex$Module == "Voltage-gated calcium channel complex"] = 20
 
 
-### Now we can do a boxplot for each module in each topological index
+Now we can do a boxplot for each module in each topological index
 
     p0 <- ggplot(subset(Vertex, !is.na(Module2))) +
           geom_boxplot(aes(x = Module2, y=Degree))+
@@ -291,7 +295,7 @@ We start by creating sets with the top 50% in each index, and the look for the i
           theme(axis.title.x=element_blank())        
     multiplot(p0, p1, p2, p3, p4, cols=1 )
 
-### The barplot graph for each index
+The barplot graph for each index
 
     p0 <- ggplot(subset(Vertex, !is.na(Module2))) +
          geom_col(aes(x = Module2, y=Degree, fill=DegreeCat))+ 
