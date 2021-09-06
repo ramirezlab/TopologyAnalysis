@@ -97,7 +97,7 @@ The next step is to create the Graph that we are going to analyze, after you run
     g <- graph_from_data_frame(Dat, directed = FALSE)
     autograph(g)
 
- <img src=".\media\descarga.png" style="zoom:10%;" />
+ <img src=".\media\descarga.png" style="width:200px;" />
  
  This is the same network visualized in Cytoscape.
 <img src=".\media\PPI-Blank_1.png" style="zoom:20%;" />
