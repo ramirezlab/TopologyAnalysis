@@ -4,7 +4,7 @@ In this tutorial, we are going to learn how to compute some topological indices 
 ## Requirements
 + R v4.1.1 or most recent.
 
-The first step is installing in R the packages that are needed and loading libraries. In order to do this, you can copy and paste the following code in R and run it.
+The first step is installing in R the packages that are needed as well as loading their respective libraries. In order to do this, you can copy and paste the following code in R and run it.
 
     install.packages("ggplot2")
     install.packages("igraph")
@@ -25,7 +25,7 @@ The first step is installing in R the packages that are needed and loading libra
     library(UpSetR)
 
 
-Now, that theMultiplot
+Now, that the libraries are loaded, we will define a multiplot function that is going to be used to visualize the network in our file.
 
     multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
     library(grid)
@@ -68,7 +68,7 @@ Now, that theMultiplot
      ###################################################################
 
 
-Upload file we read the file with the proteins and the connections and changing the columns names.
+Once the multiplot function is defined, we are going to upload the file that has the proteins and the connections, this file is available online in GitHub, which is why we are going to upload it from an URL and not from a saved file, but in case you want to analyze a local file you can uploaded it using a read.csv of read.xlsx command.
 
     url <- 'https://github.com/gcombarGitHub/GrafosFarmacosChile/raw/main/02_output_T1T2T3-interacting-with-T4.csv'
     library(readr)
@@ -86,7 +86,7 @@ If you load the data correctly, the data frame looks like the following table, w
     head(Dat, 5)
 
 
-The next step is to created the Graph, you will need the library "igraph", install it if you haven't do so.
+The next step is to create the Graph that we are going to analyze, after you run this segment of code you will obtain an image like the following one.
 
     library(igraph)
     g <- graph_from_data_frame(Dat, directed = FALSE)
@@ -94,10 +94,10 @@ The next step is to created the Graph, you will need the library "igraph", insta
 
  <img src=".\media\descarga.png" style="zoom:10%;" />
  
- This is the same network visualized in Cytoscape
+ This is the same network visualized in Cytoscape.
 <img src=".\media\PPI-Blank_1.png" style="zoom:60%;" />
 
-Information about the graph.
+Now, to obtain more information about the resulting graph, such as data that can be used to calculate some topological parameters like degree, centrality, betweenness, Pagerank, and closeness.
 
     print(paste("The Graph has",
             length(degree(g)),
@@ -119,7 +119,7 @@ Next we compute the following indices of each vertex, we will normalize our valu
 
 Degree
 
-In graph theory, the degree of a vertex of a graph is the number of edges that are incident to the vertex.
+In graph theory, the degree of a vertex of a graph is the number of edges that are incident to the vertex. In a biological network, the degree may indicate the regulatory relevance of the node. Proteins with very high degree are interacting with several other signaling proteins, thus suggesting a central regulatory role, that is they are likely to be regulatory hubs. The degree could indicate a central role in amplification (kinases), diversification and turnover (small GTPases), signaling module assembly (docking proteins), gene expression (transcription factors), etc. (Scardoni et al. 2009).
 
     Vertex <- as.data.frame(degree(g))
     Vertex$Degree <- normalize(as.numeric(Vertex$`degree(g)`))
@@ -127,7 +127,8 @@ In graph theory, the degree of a vertex of a graph is the number of edges that a
 
 Centrality
 
-Centrality or eigenvector centrality (also called prestige score) is a measure of the influence of a node in a network. Relative scores are assigned to all nodes in the network based on the concept that connections to high-scoring nodes contribute more to the score of the node in question than equal connections to low-scoring nodes. A high eigenvector score means that a node is connected to many nodes who themselves have high scores.
+Centrality or eigenvector centrality (also called prestige score) is a measure of the influence of a node in a network. Relative scores are assigned to all nodes in the network based on the concept that connections to high-scoring nodes contribute more to the score of the node in question than equal connections to low-scoring nodes. A high eigenvector score means that a node is connected to many nodes who themselves have high scores. Betweenness Centrality of a node in a protein signaling network, can indicate the relevance of a protein as functionally capable of holding together communicating proteins. The higher the value the higher the relevance of the protein as organizing regulatory molecules. Centrality of a protein indicates the capability of a protein to bring in communication distant proteins. In signaling modules, proteins with high Centrality are likely crucial to maintain the network’s functionality and coherence of signaling mechanisms (Scardoni et al. 2009).
+
 
     Vertex$Centrality <- eigen_centrality(g)$vector
 
@@ -141,7 +142,7 @@ For every pair of vertices in a connected graph, there exists at least one short
 
 Pagerank
 
-PageRank is an algorithm used by Google Search to rank web pages, it is a way of measuring the importance of website pages. According to Google: “PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites.”
+PageRank is an algorithm used by Google Search to rank web pages, it is a way of measuring the importance of website pages. According to Google: “PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites.” Page-rank allows an immediate evaluation of the regulatory relevance of the node. A protein with a very high Page-rank is a protein interacting with several important proteins, thus suggesting a central regulatory role. A protein with low Page-rank, can be considered a peripheral protein, interacting with few and not central proteins (Scardoni et al. 2009).
 
     Vertex$PageRank <- normalize(page_rank(g)$vector)
 
@@ -357,3 +358,7 @@ The barplot graph for each index
 
 
 <img src=".\media\descarga (4).png" style="zoom:60%;" />
+
+
+## References
++ Scardoni G, Laudanna C, Tosadori G, Fabbri F, Faizaan M. (2009) Analyzing biological network parameters with CentiScaPe.  Bioinformatics. doi:10.1093/bioinformatics/btp517
