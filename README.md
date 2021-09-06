@@ -117,7 +117,7 @@ Now, to obtain more information about the resulting graph, such as data that can
 
 Next we compute the following indices of each vertex, we will normalize our values, that means we will put all our values between 0 and 1.
 
-Degree
+###Degree
 
 In graph theory, the degree of a vertex of a graph is the number of edges that are incident to the vertex. In a biological network, the degree may indicate the regulatory relevance of the node. Proteins with very high degree are interacting with several other signaling proteins, thus suggesting a central regulatory role, that is they are likely to be regulatory hubs. The degree could indicate a central role in amplification (kinases), diversification and turnover (small GTPases), signaling module assembly (docking proteins), gene expression (transcription factors), etc. (Scardoni et al. 2009).
 
@@ -125,14 +125,14 @@ In graph theory, the degree of a vertex of a graph is the number of edges that a
     Vertex$Degree <- normalize(as.numeric(Vertex$`degree(g)`))
     Vertex$`degree(g)` <- NULL
 
-Centrality
+###Centrality
 
 Centrality or eigenvector centrality (also called prestige score) is a measure of the influence of a node in a network. Relative scores are assigned to all nodes in the network based on the concept that connections to high-scoring nodes contribute more to the score of the node in question than equal connections to low-scoring nodes. A high eigenvector score means that a node is connected to many nodes who themselves have high scores. Betweenness Centrality of a node in a protein signaling network, can indicate the relevance of a protein as functionally capable of holding together communicating proteins. The higher the value the higher the relevance of the protein as organizing regulatory molecules. Centrality of a protein indicates the capability of a protein to bring in communication distant proteins. In signaling modules, proteins with high Centrality are likely crucial to maintain the network’s functionality and coherence of signaling mechanisms (Scardoni et al. 2009).
 
 
     Vertex$Centrality <- eigen_centrality(g)$vector
 
-Betweenness
+###Betweenness
 
 The betweenness centrality (or "betweenness”) is a measure of centrality, for each vertex the betweenness is by definition the number of these shortest paths that pass through the vertex.
 
@@ -140,13 +140,13 @@ For every pair of vertices in a connected graph, there exists at least one short
 
     Vertex$Betweenness <- normalize(betweenness(g, normalized = TRUE ))
 
-Pagerank
+###Pagerank
 
 PageRank is an algorithm used by Google Search to rank web pages, it is a way of measuring the importance of website pages. According to Google: “PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites.” Page-rank allows an immediate evaluation of the regulatory relevance of the node. A protein with a very high Page-rank is a protein interacting with several important proteins, thus suggesting a central regulatory role. A protein with low Page-rank, can be considered a peripheral protein, interacting with few and not central proteins (Scardoni et al. 2009).
 
     Vertex$PageRank <- normalize(page_rank(g)$vector)
 
-Closeness
+###Closeness
 
 Closeness centrality (or closeness) of a node is a measure of centrality in a network, calculated as the reciprocal of the sum of the length of the shortest paths between the node and all other nodes in the graph
 
