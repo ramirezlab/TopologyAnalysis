@@ -70,6 +70,7 @@ Now, that the libraries are loaded, we will define a multiplot function that is 
 
 Once the multiplot function is defined, we are going to upload the file that has the proteins and the connections, this file is available online in GitHub, which is why we are going to upload it from an URL and not from a saved file, but in case you want to analyze a local file you can uploaded it using a read.csv of read.xlsx command.
 
+
     url <- 'https://github.com/gcombarGitHub/GrafosFarmacosChile/raw/main/02_output_T1T2T3-interacting-with-T4.csv'
     library(readr)
     Dat <- read_csv(url)
@@ -81,12 +82,16 @@ Once the multiplot function is defined, we are going to upload the file that has
     Dat$weight <- as.numeric(Dat$weight)*100
     Dat$Prot_A <- NULL; Dat$Prot_B<-NULL
 
+
 If you load the data correctly, the data frame looks like the following table, were each row is a connection between the two proteins in each column.
+
 
     head(Dat, 5)
 
 
+
 The next step is to create the Graph that we are going to analyze, after you run this segment of code you will obtain an image like the following one.
+
 
     library(igraph)
     g <- graph_from_data_frame(Dat, directed = FALSE)
@@ -97,7 +102,9 @@ The next step is to create the Graph that we are going to analyze, after you run
  This is the same network visualized in Cytoscape.
 <img src=".\media\PPI-Blank_1.png" style="zoom:60%;" />
 
+
 Now, to obtain more information about the resulting graph, such as data that can be used to calculate some topological parameters like degree, centrality, betweenness, Pagerank, and closeness.
+
 
     print(paste("The Graph has",
             length(degree(g)),
@@ -115,40 +122,54 @@ Now, to obtain more information about the resulting graph, such as data that can
        print(paste("Component", i, "Size:", length(degree(cg)) ) )
      }
 
+
 Next we compute the following indices of each vertex, we will normalize our values, that means we will put all our values between 0 and 1.
 
-###Degree
+
+### Degree
+
 
 In graph theory, the degree of a vertex of a graph is the number of edges that are incident to the vertex. In a biological network, the degree may indicate the regulatory relevance of the node. Proteins with very high degree are interacting with several other signaling proteins, thus suggesting a central regulatory role, that is they are likely to be regulatory hubs. The degree could indicate a central role in amplification (kinases), diversification and turnover (small GTPases), signaling module assembly (docking proteins), gene expression (transcription factors), etc. (Scardoni et al. 2009).
+
 
     Vertex <- as.data.frame(degree(g))
     Vertex$Degree <- normalize(as.numeric(Vertex$`degree(g)`))
     Vertex$`degree(g)` <- NULL
+    
 
-###Centrality
+### Centrality
+
 
 Centrality or eigenvector centrality (also called prestige score) is a measure of the influence of a node in a network. Relative scores are assigned to all nodes in the network based on the concept that connections to high-scoring nodes contribute more to the score of the node in question than equal connections to low-scoring nodes. A high eigenvector score means that a node is connected to many nodes who themselves have high scores. Betweenness Centrality of a node in a protein signaling network, can indicate the relevance of a protein as functionally capable of holding together communicating proteins. The higher the value the higher the relevance of the protein as organizing regulatory molecules. Centrality of a protein indicates the capability of a protein to bring in communication distant proteins. In signaling modules, proteins with high Centrality are likely crucial to maintain the network’s functionality and coherence of signaling mechanisms (Scardoni et al. 2009).
 
 
+
     Vertex$Centrality <- eigen_centrality(g)$vector
+    
 
-###Betweenness
+### Betweenness
 
-The betweenness centrality (or "betweenness”) is a measure of centrality, for each vertex the betweenness is by definition the number of these shortest paths that pass through the vertex.
 
-For every pair of vertices in a connected graph, there exists at least one shortest path between the vertices such that the number of edges that the path passes through is minimized.
+The betweenness centrality (or "betweenness”) is a measure of centrality, for each vertex the betweenness is by definition the number of these shortest paths that pass through the vertex. For every pair of vertices in a connected graph, there exists at least one shortest path between the vertices such that the number of edges that the path passes through is minimized.
+
 
     Vertex$Betweenness <- normalize(betweenness(g, normalized = TRUE ))
+    
 
-###Pagerank
+### Pagerank
+
 
 PageRank is an algorithm used by Google Search to rank web pages, it is a way of measuring the importance of website pages. According to Google: “PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites.” Page-rank allows an immediate evaluation of the regulatory relevance of the node. A protein with a very high Page-rank is a protein interacting with several important proteins, thus suggesting a central regulatory role. A protein with low Page-rank, can be considered a peripheral protein, interacting with few and not central proteins (Scardoni et al. 2009).
 
+
     Vertex$PageRank <- normalize(page_rank(g)$vector)
+    
 
-###Closeness
+### Closeness
 
-Closeness centrality (or closeness) of a node is a measure of centrality in a network, calculated as the reciprocal of the sum of the length of the shortest paths between the node and all other nodes in the graph
+
+Closeness centrality (or closeness) of a node is a measure of centrality in a network, calculated as the reciprocal of the sum of the length of the shortest paths between the node and all other nodes in the graph. A protein with high closeness, compared to the average closeness of the network, will be central to the regulation of other proteins but with some proteins not influenced by its activity. A signaling network with a very high average closeness is more likely to be organized in functional units or modules, whereas a signaling network with very low average closeness will behave more likely as an open cluster of proteins connecting different regulatory modules (Scardoni et al. 2009).
+
 
     Vertex$Closeness <- normalize(closeness(g))
 
