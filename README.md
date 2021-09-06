@@ -90,18 +90,15 @@ If you load the data correctly, the data frame looks like the following table, w
 
 
 
-The next step is to create the Graph that we are going to analyze, after you run this segment of code you will obtain an image like the following one.
+The next step is to create the Graph that we are going to analyze, after you run this segment of code you will obtain an image like the following one. As well as the same network visualized in Cytoscape fore reference.
 
 
     library(igraph)
     g <- graph_from_data_frame(Dat, directed = FALSE)
     autograph(g)
 
- <img src=".\media\descarga.png" style="width:400px;" />
+ <img src=".\media\descarga.png" style="width:400px;" /> <img src=".\media\PPI-Blank_1.png" style="width:600px;" />
  
- This is the same network visualized in Cytoscape.
-<img src=".\media\PPI-Blank_1.png" style="width:600px;" />
-
 
 Now, to obtain more information about the resulting graph, such as data that can be used to calculate some topological parameters like degree, centrality, betweenness, Pagerank, and closeness.
 
