@@ -97,10 +97,10 @@ The next step is to create the Graph that we are going to analyze, after you run
     g <- graph_from_data_frame(Dat, directed = FALSE)
     autograph(g)
 
- <img src=".\media\descarga.png" style="width:200px;" />
+ <img src=".\media\descarga.png" style="width:400px;" />
  
  This is the same network visualized in Cytoscape.
-<img src=".\media\PPI-Blank_1.png" style="zoom:20%;" />
+<img src=".\media\PPI-Blank_1.png" style="width:400px;" />
 
 
 Now, to obtain more information about the resulting graph, such as data that can be used to calculate some topological parameters like degree, centrality, betweenness, Pagerank, and closeness.
@@ -211,7 +211,7 @@ Let's see the behavior of all the topological index that we have
       geom_point(aes(color = variable), size=0.5)  +
       labs(title="All variables")
 
-<img src=".\media\descarga (1).png" style="zoom:60%;" />
+<img src=".\media\descarga (1).png" style="width:400px;" />
 
 
 
@@ -244,7 +244,7 @@ We start by creating sets with the top 50% in each index, and the look for the i
     )
 
 
-<img src=".\media\descarga (2).png" style="zoom:60%;" />
+<img src=".\media\descarga (2).png" style="width:400px;" />
 
 
     library(gplots)
@@ -290,7 +290,7 @@ Next we will see the size of the intersections in a bar diagram
      upset(fromExpression(input))
 
 
-<img src=".\media\descarga (3).png" style="zoom:60%;" />
+<img src=".\media\descarga (3).png" style="width:400px;" />
 
 
 These proteins are grouped in modules, this information is in the file "FunctionalModules.csv" also available online in Github, we would like too see how much every module add in each topological index. First we read the modules and find out in which module is each protein. The functional modules labeled and visualized in Cytoscape are in the following image for reference.
@@ -310,7 +310,7 @@ These proteins are grouped in modules, this information is in the file "Function
 
 
 
-<img src=".\media\PPI-post-MTGO.jpg" style="zoom:60%;" />
+<img src=".\media\PPI-post-MTGO.jpg" style="width:400px;" />
 
 
 Now we will rename the modules from GO terms to numbers, in order to make the graphs easy to read.
@@ -356,7 +356,7 @@ Now we can do a boxplot for each module in each topological index. The resulting
           theme(axis.title.x=element_blank())        
     multiplot(p0, p1, p2, p3, p4, cols=1 )
 
-<img src=".\media\descarga (5).png" style="zoom:60%;" />
+<img src=".\media\descarga (5).png" style="width:400px;" />
 
 Now, we can also create a barplot graph for each index. The resulting image is found next.
 
@@ -383,7 +383,7 @@ Now, we can also create a barplot graph for each index. The resulting image is f
     multiplot(p0, p1, p2, p3, p4, cols=1 )
 
 
-<img src=".\media\descarga (4).png" style="zoom:60%;" />
+<img src=".\media\descarga (4).png" style="width:400px;" />
 
 
 ## References
