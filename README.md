@@ -292,7 +292,8 @@ Next we will see the size of the intersections in a bar diagram
 
 <img src=".\media\descarga (3).png" style="zoom:60%;" />
 
-These proteins are grouped in modules, this information is in the file "FunctionalModules.csv", we would like too see how much every module add in each topological index. First we read the modules and find out in which module is each protein.
+
+These proteins are grouped in modules, this information is in the file "FunctionalModules.csv" also available online in Github, we would like too see how much every module add in each topological index. First we read the modules and find out in which module is each protein. The functional modules labeled and visualized in Cytoscape are in the following image for reference.
 
     url <- 'https://raw.githubusercontent.com/gcombarGitHub/GrafosFarmacosChile/main/FunctionalModules.csv'
     library(readr)
@@ -308,7 +309,11 @@ These proteins are grouped in modules, this information is in the file "Function
     }
 
 
-Now we will rename the modules just to make the graphs easy to read
+
+<img src=".\media\PPI-post-MTGO.jpg" style="zoom:60%;" />
+
+
+Now we will rename the modules from GO terms to numbers, in order to make the graphs easy to read.
 
     Vertex$Module2[Vertex$Module == "Acetylcholine-gated channel"] = "01"
     Vertex$Module2[Vertex$Module == "Adenylate cyclase activity"] = "02"
@@ -332,7 +337,7 @@ Now we will rename the modules just to make the graphs easy to read
     Vertex$Module2[Vertex$Module == "Voltage-gated calcium channel complex"] = 20
 
 
-Now we can do a boxplot for each module in each topological index
+Now we can do a boxplot for each module in each topological index. The resulting image is the following.
 
     p0 <- ggplot(subset(Vertex, !is.na(Module2))) +
           geom_boxplot(aes(x = Module2, y=Degree))+
@@ -353,7 +358,7 @@ Now we can do a boxplot for each module in each topological index
 
 <img src=".\media\descarga (5).png" style="zoom:60%;" />
 
-The barplot graph for each index
+Now, we can also create a barplot graph for each index. The resulting image is found next.
 
     p0 <- ggplot(subset(Vertex, !is.na(Module2))) +
          geom_col(aes(x = Module2, y=Degree, fill=DegreeCat))+ 
