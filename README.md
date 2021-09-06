@@ -100,7 +100,7 @@ The next step is to create the Graph that we are going to analyze, after you run
  <img src=".\media\descarga.png" style="width:400px;" />
  
  This is the same network visualized in Cytoscape.
-<img src=".\media\PPI-Blank_1.png" style="width:400px;" />
+<img src=".\media\PPI-Blank_1.png" style="width:600px;" />
 
 
 Now, to obtain more information about the resulting graph, such as data that can be used to calculate some topological parameters like degree, centrality, betweenness, Pagerank, and closeness.
