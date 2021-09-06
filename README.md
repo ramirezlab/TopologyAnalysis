@@ -1,7 +1,10 @@
 # Graph Theory on Proteins
-We will compute some topological indices that will help us understand the "importancy" of each protein in terms of its connections.
+In this tutorial, we are going to learn how to compute some topological indices that will help us understand the "importancy" of each protein in a protein-protein interaction network in terms of its connections.
 
-Installing packages and loading libraries
+## Requirements
++ R v4.1.1 or most recent.
+
+The first step is installing in R the packages that are needed and loading libraries. In order to do this, you can copy and paste the following code in R and run it.
 
     install.packages("ggplot2")
     install.packages("igraph")
@@ -22,7 +25,7 @@ Installing packages and loading libraries
     library(UpSetR)
 
 
-Multiplot
+Now, that theMultiplot
 
     multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
     library(grid)
