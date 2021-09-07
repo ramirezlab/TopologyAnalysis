@@ -2,7 +2,7 @@
 In this tutorial, we are going to learn how to compute some topological indices that will help us understand the "importancy" of each protein in a protein-protein interaction network in terms of its connections.
 
 ## Requirements
-+ R v4.1.1 or most recent.
++ R v4.1.1 or more recent.
 
 The first step is installing in R the packages that are needed as well as loading their respective libraries. In order to do this, you can copy and paste the following code in R and run it.
 
